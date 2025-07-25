@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Application</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+        }
+
+        h2 {
+            margin-top: 40px;
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px #00000050;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 250px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #0077ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005fd9;
+        }
+
+        .report {
+            background: #ffffffee;
+            margin-top: 40px;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            width: 300px;
+            text-align: left;
+        }
+
+        .report h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
+            color: #0077ff;
+        }
+
+        .report p {
+            font-size: 1.1rem;
+            margin: 8px 0;
+        }
+		
+    </style>
+</head>
+<body>
+
+    <h2>🌤️ Weather App</h2>
+
+    <form action="weather" method="get">
+        <input type="text" name="city" required placeholder="Enter city name">
+        <button type="submit">Get Weather</button>
+    </form>
+
+    <div class="report" th:if="${weather}">
+        <h3>City: <span th:text="${weather.name}"></span></h3>
+        <p>🌡️ Temperature: <span th:text="${weather.main.temp}"></span> °C</p>
+        <p>💧 Humidity: <span th:text="${weather.main.humidity}"></span> %</p>
+        <p>🌥️ Condition: <span th:text="${weather.weather[0].description}"></span></p>
+    </div>
+	<div th:if="${error}" style="color: red;">
+	    <p th:text="${error}"></p>
+	</div>
+
+
+</body>
+</html>
